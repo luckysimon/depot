@@ -58,6 +58,7 @@ class ProductsControllerTest < ActionController::TestCase
 
   test "should destroy product" do
     assert_difference('Product.count', -1) do
+      
       delete :destroy, params: {id: @product}
     end
 
