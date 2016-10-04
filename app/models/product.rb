@@ -8,4 +8,13 @@ class Product < ApplicationRecord
       message: 'must be a URL for GIF, JPG or PNG image.'
   }
 
+  #Playtime
+  validates_length_of :title,minimum: 10, too_short: "The title is too short!!"
+
+
+
+
+  def self.latest
+    Product.order(:updated_at).last
+  end
 end
