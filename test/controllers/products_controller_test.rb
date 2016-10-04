@@ -31,7 +31,7 @@ class ProductsControllerTest < ActionController::TestCase
 
   test "should create product" do
     assert_difference('Product.count') do
-      post :create, product: @update
+      post :create, params: {product: @update }
     end
 
     assert_redirected_to product_path(assigns(:product))
@@ -40,17 +40,17 @@ class ProductsControllerTest < ActionController::TestCase
   # ...
 
   test "should show product" do
-    get :show, id: @product
+    get :show, params: {id: @product}
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @product
+    get :edit, params: {id: @product}
     assert_response :success
   end
 
   test "should update product" do
-    patch :update, id: @product, product: @update
+    patch :update, params: {id: @product, product: @update}
     assert_redirected_to product_path(assigns(:product))
   end
 
@@ -58,9 +58,20 @@ class ProductsControllerTest < ActionController::TestCase
 
   test "should destroy product" do
     assert_difference('Product.count', -1) do
-      delete :destroy, id: @product
+      delete :destroy, params: {id: @product}
     end
 
     assert_redirected_to products_path
   end
+
+  # Chapter 8 Playtime
+   test "should get index page" do
+     # try get products/index
+     get :index
+     # assert success response
+     assert_response :success
+     # assert_select
+     assert_select '.list_description',3
+     assert_select 'dt',"Programming Ruby 1.9"
+   end
 end

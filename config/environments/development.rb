@@ -15,8 +15,10 @@ Rails.application.configure do
   # Enable/disable caching. By default caching is disabled.
   if Rails.root.join('tmp/caching-dev.txt').exist?
     config.action_controller.perform_caching = true
-
+    # Use memory to store the cache file. default 32 mb. Old cache will be deleted when reaching limit.
     config.cache_store = :memory_store
+    # Another way is to using disk to store cache file. If not cleaning will fill the whole disk.
+    # config.cache_store = :file_store, '/path/to/cache/youwanttostore'
     config.public_file_server.headers = {
       'Cache-Control' => 'public, max-age=172800'
     }

@@ -2,15 +2,27 @@
     <p id="notice"><%= notice %></p>
 <% end %>
 <h1>Your Pragmatic Catalog</h1>
-
-<% @products.each do |product| %>
+<!-- The Russian Doll Cache Note:  -->
+<!-- When you calling object in cache, actually you are requiring the object's cache_key-->
+<!-- Here the cache key is something like 'products/3-20161004023455017833' with model_name,id,updated_at included-->
+<!-- So the 1st cache is something named cache store/products/3-20161004023455017833 -->
+<!-- So if the cache exists,render it , if no render this part from server and create the new cache part.-->
+<!-- The russian doll part allows you continue use the inner cache when you will update the outer cache, only update the changed inner part. -->
+<% cache ['store',Product.latest] do%>
+<!-- This denote the cache file name views/store/products/#{cache_key}/#{MD5 value of the template and its dependencies} -->
+<!-- Server Log:   -->
+<!-- Read fragment views/store/products/3-20161004023455017833/3d888b0a75f90cb25c303c3354a0dccb (1.3ms) -->
+  <% @products.each do |product| %>
+    <% cache ['entry',product] do %>
     <div class="entry">
       <%= image_tag(product.image_url) %>
       <h3><%= product.title %></h3>
       <!-- sanitize means safely adding HTML sytlings-->
       <%= sanitize(product.description) %>
       <div class="price_line">
-    <span class="price"><%= number_to_currency(product.price) %></span>
+    <span class="price"><%= number_to_currency(product.price,locale: :en, precision: 1,unit: "$",separator: ".",delimiter: ",",) %></span>
       </div>
     </div>
+    <% end %>
+  <% end %>
 <% end %>

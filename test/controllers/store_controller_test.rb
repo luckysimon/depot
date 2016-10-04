@@ -15,7 +15,7 @@ class StoreControllerTest < ActionDispatch::IntegrationTest
     # Assert there exists one h3 element with the following name
     assert_select 'h3','Programming Ruby 1.9'
     # Assert the element with class='price' is formatted correctly
-    assert_select '.price', /\$[,\d]+\.\d\d/
+    assert_select '.price', /\$[,\d]+\.\d/
     # regular expression / / in this example it means start with $ with at least one number and the decimal point. and two decimal digits.
 
     # ========
