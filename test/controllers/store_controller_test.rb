@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class StoreControllerTest < ActionDispatch::IntegrationTest
+class StoreControllerTest < ActionController::TestCase
   test "should get index" do
-    get store_index_path
+    get :index
     assert_response :success
     # controller test code
 
