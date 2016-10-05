@@ -1,4 +1,6 @@
 class StoreController < ApplicationController
+  include CurrentCart
+  before_action :set_cart
   def index
     @count=index_visit_counter
     @products = Product.order(:title)
