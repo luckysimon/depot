@@ -60,7 +60,7 @@ class CartsController < ApplicationController
     # clear the session[:cart_id] after destroy
     session[:cart_id]=nil
     respond_to do |format|
-      format.html { redirect_to store_url, notice: 'Your cart is current empty.' }
+      format.html { redirect_to store_url }
       format.json { head :no_content }
     end
   end
