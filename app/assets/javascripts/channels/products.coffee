@@ -10,5 +10,5 @@ App.products = App.cable.subscriptions.create "ProductsChannel",
     # Called when there's incoming data on the websocket for this channel.
     # Then update the content of class= "store" (the store/ folder) id="main" content => actually the <%= yield %> part
     # Using the content in data
-    $(".store #main").html(data.html)
-   
+    $(".store #main").html(data.html);
+    $(".entry#current_product ").css({'background-color':'#ffff33'}).animate({'background-color':'white'}, 1000)

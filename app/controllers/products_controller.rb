@@ -45,7 +45,7 @@ class ProductsController < ApplicationController
         format.html { redirect_to @product, notice: 'Product was successfully updated.' }
         format.json { render :show, status: :ok, location: @product }
         # Since the store/index.html.erb require instance variable @products.
-        @products= Product.all
+        @products= Product.all.order(:title)
         ActionCable.server.broadcast 'products',
         # Raw rendering of a template to a string.
         # Broadcast messages typically consist of Ruby hashes. Here the server broadcasts a hash with key "html"

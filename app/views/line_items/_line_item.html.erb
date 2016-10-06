@@ -6,5 +6,5 @@
   <td><%= line_item.quantity %>&times;</td>
   <td><%= line_item.product.title %></td>
   <td class="item_price"><%= number_to_currency(line_item.total_price) %></td>
-  <td> <%= button_to "Decrease 1 Book", xx_path,method: :put,%>
+  <td><%= button_to 'Remove One Book',line_item_path(line_item),remove_single_item(line_item) %></td>
 </tr>

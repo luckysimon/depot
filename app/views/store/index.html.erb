@@ -16,9 +16,13 @@
 <!-- Server Log:   -->
 <!-- Read fragment views/store/products/3-20161004023455017833/3d888b0a75f90cb25c303c3354a0dccb (1.3ms) -->
   <% @products.each do |product| %>
-    <% cache ['entry',product] do %>
+    <!-- < cache ['entry',product] do > -->
+    <% if product == @product %>
+    <div class= "entry" id= "current_product">
+    <% else %>
     <div class="entry">
-      <%= image_tag(product.image_url) %>
+    <% end %>
+      <%= link_to image_tag(product.image_url),line_items_path(product_id: product.id),method: :post,remote: true %>
       <h3><%= product.title %></h3>
       <!-- sanitize means safely adding HTML sytlings-->
       <%= sanitize(product.description) %>
@@ -26,9 +30,8 @@
     <span class="price"><%= number_to_currency(product.price,locale: :en, precision: 1,unit: "$",separator: ".",delimiter: ",",) %></span>
     <!-- button_to helper method actually generate a HTML <form>  </form>,which contains <div> default method post -->
     <%= button_to 'Add to Cart', line_items_path(product_id: product.id),method: :post,remote: true %>
-    <%= button_to 'Add to Cart', line_items_path(product_id: product.id),method: :post,remote: true %>
       </div>
     </div>
-    <% end %>
+    <!-- < end > -->
   <% end %>
 <% end %>
