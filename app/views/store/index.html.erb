@@ -26,6 +26,7 @@
     <span class="price"><%= number_to_currency(product.price,locale: :en, precision: 1,unit: "$",separator: ".",delimiter: ",",) %></span>
     <!-- button_to helper method actually generate a HTML <form>  </form>,which contains <div> default method post -->
     <%= button_to 'Add to Cart', line_items_path(product_id: product.id),method: :post,remote: true %>
+    <%= button_to 'Add to Cart', line_items_path(product_id: product.id),method: :post,remote: true %>
       </div>
     </div>
     <% end %>

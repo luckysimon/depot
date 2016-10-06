@@ -1,6 +1,15 @@
 // Jquery
 // escape_javascript is a rails javascript helper method
 
+// How the code works:
+// $('#cart tr').length => count all tr elements in the elements with id= "cart" (in the browser's current layout)
+// In this example in id= "cart", it renders @cart partial, which contains two parts of tr elements.
+// One is the line_items table(might contains multiple trs),the other is the .total_price part(with one tr always)
+// With the helper hidden_div_if, if no line items, the #cart element will not be displayed.
+// So the $ $('#cart').show will be called only when the cart is cuurent empty, and now just create one line_item. the server will tell the browser to show the cart in the create.js.erb response.
+// Since afterwards js also tells browser to render the cart again. The result is the $('#cart tr').length = 2 now.
+// So adding new items again will not call the cart.show part again.
+
 if ($('#cart tr').length == 1) { $('#cart').show('blind',1000); }
 
 $('#cart').html("<%= escape_javascript render(@cart) %>");

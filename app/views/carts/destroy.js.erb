@@ -1,0 +1,7 @@
+// $('#cart tr').not(".total_line").remove();
+$('#cart').hide('blind',1000);
+// $('#cart tr').not(".total_line").remove();
+// Trick set 1s timeout to make the blind effect more pretty.
+setTimeout(function(){
+  $('#cart tr').not(".total_line").remove();
+}, 1000);

@@ -14,8 +14,10 @@
 </div>
 <div id="columns">
   <div id="side">
-    <%= hidden_div_if(@cart.line_items.empty?, id: 'cart') do %>
-        <%= render @cart %>
+    <%= hidden_div_if(@cart.nil? || @cart.line_items.empty?, id: 'cart') do %>
+    <!-- output <div id= "cart" style="display: none"> </div> -->
+        <%= render @cart if @cart.present?%>
+        <!-- render /carts/_cart.html.erb -->
     <% end %>
 
     <ul>
