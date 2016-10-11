@@ -27,8 +27,8 @@
   </div>
 
   <div class="field">
-    <%= f.label :pay_type %>
-    <%= f.select :pay_type,Order.pay_types.keys,prompt: 'Select a payment method' %>
+    <%= f.label :payment_type %>
+    <%= f.select :payment_type,PaymentType.pluck(:name),prompt: 'Select a payment method' %>
   </div>
 
   <div class="actions">
