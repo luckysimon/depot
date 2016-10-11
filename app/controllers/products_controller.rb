@@ -50,7 +50,7 @@ class ProductsController < ApplicationController
         # Raw rendering of a template to a string.
         # Broadcast messages typically consist of Ruby hashes. Here the server broadcasts a hash with key "html"
         # the hash value is the views/store/index.html.erb, without the layout.
-          html: render_to_string('store/index',layout:false)
+        html: render_to_string('store/index',layout:false)
       else
         format.html { render :edit }
         format.json { render json: @product.errors, status: :unprocessable_entity }
@@ -75,11 +75,29 @@ class ProductsController < ApplicationController
     if stale?(@latest_order)
       respond_to do |format|
         format.atom
+        format.html
+        format.json {render :json => @product.to_json(:include => :orders)}
+        format.xml { render( :xml => @product.to_xml(
+          :only => [ :title, :updated_at ],
+          :skip_types => true,
+          :include => {
+            :orders => {
+              :except => [ :created_at, :updated_at ],
+              :skip_types => true,
+              :include => {
+                :line_items => {
+                  :skip_types => true,
+                  :except => [ :created_at, :updated_at, :cart_id, :order_id ]
+                }
+              }
+            }
+          }
+          )) }
+        end
       end
     end
-  end
 
-  private
+    private
     # Use callbacks to share common setup or constraints between actions.
     def set_product
       @product = Product.find(params[:id])
@@ -89,4 +107,4 @@ class ProductsController < ApplicationController
     def product_params
       params.require(:product).permit(:title, :description, :image_url, :price)
     end
-end
+  end

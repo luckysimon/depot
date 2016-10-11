@@ -2,7 +2,6 @@ atom_feed do |feed|
   feed.title "Who bought #{@product.title}"
 
   feed.updated @latest_order.try(:updated_at)
-
   @product.orders.each do |order|
     feed.entry(order) do |entry|
       entry.title "Order #{order.id}"
@@ -37,7 +36,7 @@ atom_feed do |feed|
   end
 end
 
-# A sample xhtml is listed below: 
+# A sample xhtml is listed below:
 
 # <?xml version="1.0" encoding="UTF-8"?>
 # <feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom">
